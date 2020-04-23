@@ -10,7 +10,7 @@ const getRandomColor = () => {
 }
 
 
-export const ColorBox = () => {
+const ColorBox = () => {
 
    const [color, setColor] = useState(() => {
       // Neu localStorage null thi dung 'deeppink'
@@ -31,3 +31,5 @@ export const ColorBox = () => {
       />
    )
 }
+
+export default ColorBox;
