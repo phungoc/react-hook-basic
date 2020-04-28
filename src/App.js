@@ -7,6 +7,9 @@ import PostList from "./Components/PostList/PostList";
 import Pagination from "./Components/Pagination/Pagination";
 import queryString from 'query-string';
 import PostFilterForm from "./Components/PostFilterForm/PostFilterForm";
+import Clock from "./Components/Clock/Clock";
+import BetterClock from "./Components/BetterClock/BetterClock";
+import MagicBox from "./Components/MagicBox/MagicBox";
 
 function App() {
 	const [todoList, setTodoList] = useState([
@@ -28,26 +31,26 @@ function App() {
 		_page: 1,
 	});
 
-	useEffect(() => {
-		const fetchPostList = async () => {
-			try {
-				//_limit=10&_page=1
-				const paramString = queryString.stringify(filter);
-				const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramString}`;
-				const response = await fetch(requestUrl);
-				const responseJSON = await response.json();
-				const { data, pagination } = responseJSON;
+	// useEffect(() => {
+	// 	const fetchPostList = async () => {
+	// 		try {
+	// 			//_limit=10&_page=1
+	// 			const paramString = queryString.stringify(filter);
+	// 			const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramString}`;
+	// 			const response = await fetch(requestUrl);
+	// 			const responseJSON = await response.json();
+	// 			const { data, pagination } = responseJSON;
 
-				console.log({ responseJSON });
+	// 			console.log({ responseJSON });
 
-				setPostList(data);
-				setPagination(pagination);
-			} catch (error) {
-				console.log("Fail fetch post list: " + error);
-			}
-		}
-		fetchPostList();
-	}, [filter]);
+	// 			setPostList(data);
+	// 			setPagination(pagination);
+	// 		} catch (error) {
+	// 			console.log("Fail fetch post list: " + error);
+	// 		}
+	// 	}
+	// 	fetchPostList();
+	// }, [filter]);
 
 
 	const handlePageChange = (newPage) => {
@@ -89,6 +92,7 @@ function App() {
 		})
 	}
 
+	const [showClock, setShowClock] = useState(true);
 
 	return (
 		<div className="app">
@@ -96,9 +100,18 @@ function App() {
 			{/* <ColorBox />
 			<TodoForm onSubmit={handleTodoFormSubmit} />
 			<TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
-			<PostList posts={postList} />
+			{/* <PostList posts={postList} />
 			<Pagination pagination={pagination} onPageChange={handlePageChange} />
-			<PostFilterForm onSubmit={handleFilterChange} />
+			<PostFilterForm onSubmit={handleFilterChange} /> */}
+			{showClock && <Clock />}
+			<BetterClock />
+			<MagicBox />
+			<button type="button"
+				className="btn btn-primary"
+				onClick={() => setShowClock(false)}
+			>
+				Hide clock
+			</button>
 		</div>
 	);
 }
